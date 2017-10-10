@@ -5,6 +5,7 @@ from django.utils import timezone
 
 class Category(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название категории')
+    parent_category = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
     alias = models.SlugField(verbose_name='Alias категории')
     class Meta:
         verbose_name = 'Категория'
@@ -12,15 +13,15 @@ class Category(models.Model):
     def __str__(self):
         return 'Категория %s' % self.name
 
-class Subcategory(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Название подкатегории')
-    alias = models.SlugField(verbose_name='Alias подкатегории')
-    category = models.ForeignKey(Category)
-    class Meta:
-        verbose_name = 'Подкатегория'
-        verbose_name_plural = 'Подкатегории'
-    def __str__(self):
-        return 'Подкатегория %s' % self.name
+# class Subcategory(models.Model):
+#    name = models.CharField(max_length=255, verbose_name='Название подкатегории')
+#    alias = models.SlugField(verbose_name='Alias подкатегории')
+#    category = models.ForeignKey(Category)
+#    class Meta:
+#        verbose_name = 'Подкатегория'
+#        verbose_name_plural = 'Подкатегории'
+#    def __str__(self):
+#        return 'Подкатегория %s' % self.name
 
 class Item(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название товара') # verbose_name как товар будет отображаться в админке
@@ -29,7 +30,7 @@ class Item(models.Model):
 
     category = models.ForeignKey(Category)
     #brend = models.ForeignKey(Brend, null=True)
-    subcategory = models.ForeignKey(Subcategory)
+    #subcategory = models.ForeignKey(Subcategory)
 
 
     class Meta:
@@ -42,7 +43,7 @@ class Item(models.Model):
 
 class Zakaz(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя официанта')
-    place = models.CharField(max_length=255, verbose_name='Место')
+    place = models.CharField(max_length=255, verbose_name='Место', null=True)
     zakaz = models.CharField(max_length=255, verbose_name='Что заказал')
     summa = models.IntegerField(default=0, verbose_name='Сумма заказа')
     data = models.DateTimeField(default=timezone.now, verbose_name='Дата заказа')
