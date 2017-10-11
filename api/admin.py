@@ -7,14 +7,15 @@ class ItemAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
 
-# class SubcategoryAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'name')
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'date')
 
-class ZakazAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'data')
+class OrderLineAdmin(admin.ModelAdmin):
+    list_display = ('id', 'item', 'order', 'count')
+
 
 admin.site.register(Item, ItemAdmin) # чтобы модель Item стала доступна на стр админки
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Zakaz, ZakazAdmin)
-#admin.site.register(Subcategory, SubcategoryAdmin)
+admin.site.register(Order, OrderAdmin)
+admin.site.register(OrderLine, OrderLineAdmin)
 
