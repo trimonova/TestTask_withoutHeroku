@@ -11,7 +11,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'order_place', 'waiter', 'date')
 
 class OrderLineAdmin(admin.ModelAdmin):
-    list_display = ('id', 'item', 'order', 'count')
+    list_display = ('id', 'item', 'order', 'count', 'item_price')
 
 class WaitersAdmin(admin.ModelAdmin):
     list_display = ('id', 'waiter_name', 'work_place')

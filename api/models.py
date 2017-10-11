@@ -69,6 +69,7 @@ class OrderLine(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     count = models.IntegerField(default=0, null=True)
+    item_price = models.IntegerField(default=0, null=True)
 
     class Meta:
         verbose_name = 'Строка заказа'
