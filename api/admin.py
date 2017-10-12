@@ -8,7 +8,8 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'category_name')
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'order_place', 'waiter', 'date')
+    list_display = ('id', 'order_place', 'waiter', 'date', 'order_total', 'payment')
+    list_editable = ('payment',)
 
 class OrderLineAdmin(admin.ModelAdmin):
     list_display = ('id', 'item', 'order', 'count', 'item_price')

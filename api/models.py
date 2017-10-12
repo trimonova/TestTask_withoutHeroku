@@ -56,6 +56,8 @@ class Order(models.Model):
     order_place = models.ForeignKey(OrderPlace, null=True)
     date = models.DateTimeField(default=timezone.now, verbose_name='Дата заказа')
     items = models.ManyToManyField(Item, through='OrderLine')
+    order_total = models.IntegerField(null=True)
+    payment = models.NullBooleanField()
 
     class Meta:
         verbose_name = 'Заказ'
