@@ -28,13 +28,17 @@ def order(request):
             waiter_id = request.POST.get('waiter-id')
             item_ids = request.POST.get('item-ids')
             item_counts = request.POST.get('item-counts')
-            item_prices = request.POST.get('item-prices')
+            #item_prices = request.POST.get('item-prices')
             try:
                 item_ids_list = list(map(int, item_ids.split('-')))
                 count_list = list(map(int, item_counts.split('-')))
-                item_prices_list = list(map(int, item_prices.split('-')))
+                #item_prices_list = list(map(int, item_prices.split('-')))
             except:
                 raise Http404('Параметры заказа введены неправильно')
+
+            item_prices_list = []
+            for i in range(len(item_ids_list)):
+                item_prices_list.append(Item.objects.get(id= item_ids_list[i]).price)
 
             order_total = sum([x * y for x, y in zip(count_list,item_prices_list)])
 
@@ -57,10 +61,12 @@ def order(request):
     else:
         raise Http404('Not a post request')
 
-
-
-
 def menu(request):
-    if request.user.is_authenticated():
-        item = list(Item.objects.values())
-        return JsonResponse({'results':item})
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            item = list(Item.objects.values())
+            return JsonResponse({'results':item})
